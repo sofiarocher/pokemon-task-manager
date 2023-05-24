@@ -8,6 +8,7 @@ import { useRef, useEffect } from 'react';
 import backgroundVideo from "../assets/background.mp4"
 import Link from '@mui/material/Link';
 
+
 function Nav() {
     const videoRef = useRef(null);
 
@@ -19,11 +20,12 @@ function Nav() {
         display: "flex",
         flexDirection: "column",
         alignItems:"center",
-        width:"100%"
+        width:"100%",
     }
 
     const appBarStyles = {
-        position: 'relative',
+        position: 'static',
+ 
     };
     
     const videoStyles = {
@@ -38,19 +40,16 @@ function Nav() {
 
     return (
         <div sx={appContainer}>
-            <AppBar sx={{appBarStyles, width: '100%', textAlign: 'center' }}>
+            <AppBar sx={{appBarStyles, width: '100%', textAlign: 'center'}}>
                 <Toolbar>
                     <Link href='/tasks' sx={{textDecoration:"none"}}>
-                        <Typography variant="h4" sx={{color: '#FECA0A', fontWeight:"800"}}>
+                        <Typography variant="h4" sx={{color: '#FF0000', fontWeight:"800"}}>
                             PokeTask
                         </Typography>
                     </Link>
                     <Box sx={{ flexGrow: 1 }} />
                     <Link href="/tasks">
-                        <Button color="inherit" sx={{color: '#3C5EA9', fontWeight:"800"}}> Tasks</Button>
-                    </Link>
-                    <Link href="/ourpokemons">
-                        <Button color="inherit" sx={{color: '#3C5EA9', fontWeight:"800"}}> Our Pokemons</Button>
+                        <Button color="inherit" sx={{color: '#FF0000', fontWeight:"800"}}> Tasks</Button>
                     </Link>
                 </Toolbar>
                 <video ref={videoRef} style={videoStyles} loop muted autoPlay>
