@@ -7,9 +7,8 @@ import './App.css'
 function App() {
   return (
     <>
-      
       <Router>
-        <Nav />
+          <Nav />
         <Routes>  
           <Route exact path="/tasks" element={<Tasks />} />
           <Route path="/ourpokemons" element={<OurPokemons/>} />

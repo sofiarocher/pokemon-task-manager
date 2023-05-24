@@ -41,16 +41,16 @@ function Nav() {
             <AppBar sx={{appBarStyles, width: '100%', textAlign: 'center' }}>
                 <Toolbar>
                     <Link href='/tasks' sx={{textDecoration:"none"}}>
-                        <Typography variant="h4" sx={{ color: 'red' }}>
+                        <Typography variant="h4" sx={{color: '#FECA0A', fontWeight:"800"}}>
                             PokeTask
                         </Typography>
                     </Link>
                     <Box sx={{ flexGrow: 1 }} />
                     <Link href="/tasks">
-                        <Button color="inherit" sx={{color:"red"}}> Tasks</Button>
+                        <Button color="inherit" sx={{color: '#3C5EA9', fontWeight:"800"}}> Tasks</Button>
                     </Link>
                     <Link href="/ourpokemons">
-                        <Button color="inherit" sx={{color:"red"}}> Our Pokemons</Button>
+                        <Button color="inherit" sx={{color: '#3C5EA9', fontWeight:"800"}}> Our Pokemons</Button>
                     </Link>
                 </Toolbar>
                 <video ref={videoRef} style={videoStyles} loop muted autoPlay>
