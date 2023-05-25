@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { TextField, Button, FormControl, InputLabel, Select, MenuItem, FormHelperText, Box } from '@mui/material';
+import { IconButton } from '@mui/material';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import * as Yup from 'yup';
 import axios from 'axios';
 
 const validationSchema = Yup.object().shape({
-  task: Yup.string().required('The task is required.'),
-  pokemon: Yup.string().required('Choose a pokemon.'),
+  task: Yup.string().required(
+    <span style={{ fontFamily: 'sans-serif' }}>The task is required.</span>
+  ),
+  pokemon: Yup.string().required(
+    <span style={{ fontFamily: 'sans-serif' }}>Choose a pokemon.</span>
+  ),
 });
 
 const MyForm = ({ handleTaskCreation, pokemonList }) => {
@@ -49,7 +55,7 @@ const MyForm = ({ handleTaskCreation, pokemonList }) => {
             <ErrorMessage name="pokemon" component={FormHelperText} />
           </FormControl>
 
-          <Button type="submit" variant="contained" sx={{backgroundColor:"#FF0000"}}>
+          <Button type="submit" variant="contained" sx={{backgroundColor:"#DC143C"}}>
             Create
           </Button>
         </Box>
@@ -58,21 +64,29 @@ const MyForm = ({ handleTaskCreation, pokemonList }) => {
   );
 };
 
-const TaskList = ({ tasks }) => {
+const TaskList = ({ tasks, handleDeleteTask }) => {
   return (
     <ul style={{ listStyle: 'none', padding: 0 }}>
       {tasks.map((task, index) => (
         <li
           key={index}
           style={{
-            backgroundImage: 'linear-gradient(#AFEEEE, #E0FFFF )',
+            backgroundColor: '#4169E1',
             borderRadius: '24px',
             padding: '24px',
             marginBottom: '16px',
+            position: 'relative',
           }}
         >
-          <div style={{fontFamily:"sans-serif", color:'#4169E1', fontWeight:"700", marginBottom: '8px', fontSize: '18px' }}>Task: {task.task}</div>
-          <div style={{fontFamily:"sans-serif", color:'#4169E1', fontWeight:"700", fontSize: '16px' }}>Assigned Pokemon: {task.pokemon.name}</div>
+          <div style={{fontFamily:"sans-serif", color:'white', fontWeight:"700", marginBottom: '8px', fontSize: '16px', textAlign:"start" }}>Task: {task.task}</div>
+          <div style={{fontFamily:"sans-serif", color:'white', fontWeight:"700", fontSize: '16px' }}>Assigned Pokemon: {task.pokemon.name}</div>
+          <IconButton
+            onClick={() => handleDeleteTask(index)}
+            sx={{ color: '#DC143C', position: 'absolute', top: '8px', right: '8px' }}
+            aria-label="Delete Task"
+          >
+            <DeleteOutlineIcon />
+          </IconButton>
         </li>
       ))}
     </ul>
@@ -98,19 +112,35 @@ const Tasks = () => {
 
   const handleTaskCreation = (newTask) => {
     setTasks((prevTasks) => [...prevTasks, newTask]);
-
 }
 
+  const handleDeleteTask = (index) => {
+    setTasks((prevTasks) => {
+      const updatedTasks = [...prevTasks];
+      updatedTasks.splice(index, 1);
+      return updatedTasks;
+    });
+  };
+    
+
 return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent:"center", alignItems: 'center', padding: '24px', backgroundImage: 'linear-gradient(#1E90FF, #4169E1, #426FF0 )', borderRadius: '50px', maxWidth: '400px', margin:"0 auto", boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)', marginTop:"200px"}}>
-      <h1 style={{ textAlign: 'center', marginBottom: '24px', fontSize: '24px', color: 'white', fontFamily:"sans-serif"}}>
-        Create new task!
-      </h1>
-      <MyForm handleTaskCreation={handleTaskCreation} pokemonList={pokemonList} />
-      <h2 style={{textAlign: 'center', marginTop: '32px', fontSize: '20px', color: 'white', fontFamily:"sans-serif" }}>
-        Tasks created
-      </h2>
-      <TaskList tasks={tasks} />
+    <Box sx={{paddingTop:"200px"}} >
+      <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent:"center", alignItems: 'center', padding: '24px', backgroundColor: 'white', borderRadius: '50px', maxWidth: '400px', margin:"0 auto", boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)'}}>
+        <h1 style={{ textAlign: 'center', marginBottom: '24px', fontSize: '24px', color: '#696969', fontFamily:"sans-serif"}}>
+          Create new task!
+        </h1>
+        <MyForm handleTaskCreation={handleTaskCreation} pokemonList={pokemonList}  />
+        <h2 style={{textAlign: 'center', marginTop: '32px', fontSize: '20px', color: '#696969', fontFamily:"sans-serif" }}>
+          Tasks created:
+        </h2>
+        {tasks.length === 0 ? (
+      <p style={{ textAlign: "center", color: "#696969", fontFamily: "sans-serif" }}>
+        You didn't create a task yet!
+      </p>
+    ) : (
+      <TaskList tasks={tasks} handleDeleteTask={handleDeleteTask} />
+    )}
+      </Box>
     </Box>
     );};
   
