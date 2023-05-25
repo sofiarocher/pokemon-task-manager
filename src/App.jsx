@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import backgroundVideo from "./assets/background.mp4"
 import './App.css'
 import Home from './components/Home';
+import { useEffect, useRef } from 'react';
 
 
 function App() {
@@ -13,8 +14,15 @@ function App() {
     background: `url(${backgroundVideo})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    
   };
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play();
+    }
+  }, []);
+
   const videoStyles = {
     position: 'absolute',
     top: '50%',
@@ -25,12 +33,11 @@ function App() {
     width: 'auto',
     height: 'auto',
     zIndex: -1,
-    
   };
 
   return (
     <div style={appContainerStyles}>
-      <video style={videoStyles} autoPlay muted loop>
+      <video ref={videoRef} style={videoStyles} autoPlay muted loop playsInline>
         <source src={backgroundVideo} type="video/mp4" />
       </video>
       <Router>
@@ -44,4 +51,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
