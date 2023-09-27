@@ -40,3 +40,14 @@
 .read-the-docs {
   color: #888;
 }
+
+@media screen and (max-width:768px) {
+  video {
+    display: none;
+  }
+
+  div {
+    background-image: url(https://i.pinimg.com/originals/df/4e/8b/df4e8ba28f912bf9cdf9fa0dfc196411.png);
+  }
+
+}
