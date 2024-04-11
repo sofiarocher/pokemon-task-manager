@@ -21,7 +21,7 @@ I had to do it for a take-home test for a job.
 
 ## Installation
 
-Clone ecommerce-bakery
+Clone pokemon-task-manager
 
 ```bash
   git clone https://github.com/sofiarocher/pokemon-task-manager.git
